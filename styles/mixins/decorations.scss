@@ -1,0 +1,14 @@
+@use '../utils.scss' as *;
+@use 'sass:list';
+
+@mixin withBorderRadius($borderRadius: px(8)) {
+	border-radius: $borderRadius;
+}
+
+@mixin withBoxShadow() {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+
+@mixin withTransition($time: 150ms, $timingFunction: ease-in-out, $properties) {
+	transition: list.join($properties, (), $separator: comma) $time $timingFunction;
+}

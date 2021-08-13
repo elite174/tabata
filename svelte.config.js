@@ -1,0 +1,27 @@
+import preprocess from 'svelte-preprocess';
+import path from 'path';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: preprocess(),
+
+  kit: {
+    // hydrate the <div id="svelte"> element in src/app.html
+    target: '#svelte',
+    vite: {
+      resolve: {
+        alias: {
+          $components: path.resolve('./src/core/components'),
+          $styles: path.resolve('./src/styles'),
+          $features: path.resolve('./src/features'),
+          $utils: path.resolve('./src/core/utils'),
+          $store: path.resolve('./src/core/store')
+        }
+      }
+    }
+  }
+};
+
+export default config;

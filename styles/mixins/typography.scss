@@ -1,0 +1,27 @@
+@use '../utils.scss' as *;
+
+@mixin basefont() {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@mixin regular($fontSize) {
+  @include basefont();
+
+  font-size: px($fontSize);
+}
+
+@mixin bold($fontSize) {
+  @include basefont();
+
+  font-weight: 600;
+
+  font-size: px($fontSize);
+}
+
+@mixin monospace($fontSize) {
+  @include basefont();
+
+  font-family: 'Courier New', Courier, monospace;
+
+  font-size: px($fontSize);
+}

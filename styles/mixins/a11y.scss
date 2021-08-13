@@ -1,0 +1,5 @@
+@use '../utils.scss' as *;
+
+@mixin withOutline() {
+    outline: px(2) transparent;
+}

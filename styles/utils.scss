@@ -1,0 +1,14 @@
+@use 'sass:math';
+
+@function px($px) {
+    @return #{math.div($px, 16)}rem;
+}
+
+@function color(
+  $hue: var(--defaultHue),
+  $saturation: var(--defaultSaturation),
+  $lightness: var(--defaultLightness)
+) {
+  @return hsl($hue, $saturation, $lightness);
+}
+
