@@ -19,13 +19,11 @@
   @use 'styles/lib' as *;
 
   .timer {
-    width: fit-content;
-
     text-align: center;
   }
 
   .time {
-    @include bold(40);
+    @include bold(80);
   }
 
   .stage {

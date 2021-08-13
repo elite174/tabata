@@ -1,7 +1,8 @@
 <style>
   :global(:root) {
+    --font-family: 'Rubik', sans-serif;
     --color-text: rgb(12, 12, 12);
-    --color-text-secondary: rgb(114, 114, 114);
+    --color-text-secondary: rgb(92, 92, 92);
     --color-neutral: rgb(243, 243, 243);
 
     --color-accent: rgb(59, 133, 230);

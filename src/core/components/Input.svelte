@@ -66,6 +66,7 @@
   
     margin-bottom: px(8);
     text-align: center;
+    color: var(--color-text-secondary);
   }
 
   .row {
