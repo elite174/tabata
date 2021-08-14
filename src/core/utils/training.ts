@@ -3,6 +3,7 @@ import { Stage } from '../constants';
 
 interface TimerState {
   stage: Stage | null;
+  nextStage?: Stage | null;
   timeRemained: number;
   cyclesRemained?: number;
   setsRemained?: number;
@@ -15,7 +16,7 @@ export function* getNextState(config: TrainingData): TimerGenerator {
   let timeRemained: number;
 
   for (timeRemained = config.beforeTraining; timeRemained >= 0; timeRemained--) {
-    yield { stage: Stage.BEFORE_TRAINING, timeRemained };
+    yield { stage: Stage.BEFORE_TRAINING, timeRemained, nextStage: Stage.SET };
   }
 
   for (let cyclesRemained = config.cycleCount - 1; cyclesRemained >= 0; cyclesRemained--) {

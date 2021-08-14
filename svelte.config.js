@@ -1,5 +1,6 @@
 import preprocess from 'svelte-preprocess';
 import path from 'path';
+import vercel from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -20,7 +21,8 @@ const config = {
           $store: path.resolve('./src/core/store')
         }
       }
-    }
+    },
+    adapter: vercel()
   }
 };
 
