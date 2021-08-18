@@ -35,6 +35,8 @@
 			"$utils/*": ["src/core/utils/*"],
 			"$store": ["src/core/store"],
 			"$store/*": ["src/core/store/*"],
+			"$constants": ["src/core/constants"],
+			"$constants/*": ["src/core/constants/*"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]

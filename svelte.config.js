@@ -18,7 +18,8 @@ const config = {
           $styles: path.resolve('./src/styles'),
           $features: path.resolve('./src/features'),
           $utils: path.resolve('./src/core/utils'),
-          $store: path.resolve('./src/core/store')
+          $store: path.resolve('./src/core/store'),
+          $constants: path.resolve('./src/core/constants')
         }
       }
     },

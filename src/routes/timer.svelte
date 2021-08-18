@@ -35,6 +35,8 @@
   import CircleButton from '$components/CircleButton.svelte';
   import InfoBlock from '$features/timer/InfoBlock.svelte';
   import Header from '$components/Header.svelte';
+  import { Stage } from '$constants';
+  import { i18n } from 'src/i18n';
 
   const { currentTrainingConfig } = getContext<Store>('store');
 
@@ -42,7 +44,7 @@
   let generatorInstance: TimerGenerator;
 
   let time = 0;
-  let currentStage = '';
+  let currentStage;
   let ready = false;
   let timer: NodeJS.Timer;
 
@@ -51,7 +53,7 @@
     const { value } = generatorInstance.next();
 
     time = value.timeRemained;
-    currentStage = value.stage;
+    currentStage = i18n.stages[value.stage];
     ready = true;
   };
 
@@ -63,9 +65,8 @@
     } = generatorInstance.next();
 
     time = timeRemained;
-    currentStage = stage;
+    currentStage = i18n.stages[stage];
 
-    console.log('set');
     timer = setTimeout(tick, 1000);
   };
 

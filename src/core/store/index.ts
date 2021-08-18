@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+
 import type { TrainingData } from '../typings';
 
 const currentTrainingConfig = writable<TrainingData | null>(null);
