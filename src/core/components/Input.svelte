@@ -8,11 +8,12 @@
   export let value = 0;
   export let changeValue = 1;
   export let maxValue = 3600;
+  export let minValue = 0;
   export let units: string = '';
   export let onChange: (value: number) => void;
 
   const handleInc = () => {
-    if (value + changeValue < 0) {
+    if (value + changeValue < minValue) {
       return;
     }
 
@@ -20,14 +21,14 @@
   };
 
   const handleDec = () => {
-    if (value - changeValue < 0) {
+    if (value - changeValue < minValue) {
       return;
     }
 
     onChange(value - changeValue);
   };
 
-  $: getFormattedValue = () =>
+  $: formattedValue =
     type === 'number'
       ? `${value} ${units}`
       : `${Math.floor(value / 60)
@@ -44,7 +45,7 @@
     <button class="button" disabled={!canDec} on:click={handleDec}>
       <Icon name="remove-outline" size={20} />
     </button>
-    <span class="text">{getFormattedValue()}</span>
+    <span class="text">{formattedValue}</span>
     <button class="button" disabled={!canInc} on:click={handleInc}>
       <Icon name="add-outline" size={20} />
     </button>
@@ -56,14 +57,14 @@
 
   .container {
     width: 100%;
-  
+
     padding-bottom: px(12);
     border-bottom: 1px solid var(--color-accent);
   }
 
   .name {
     @include regular(16);
-  
+
     margin-bottom: px(8);
     text-align: center;
     color: var(--color-text-secondary);
@@ -72,7 +73,7 @@
   .row {
     display: flex;
     align-items: center;
-    justify-content: space-between
+    justify-content: space-between;
   }
 
   .text {

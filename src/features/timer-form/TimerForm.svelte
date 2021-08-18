@@ -23,6 +23,7 @@
     value={training.setDuration}
     changeValue={5}
     maxValue={120}
+    minValue={5}
     units="sec"
     onChange={(value) => onParamChange(value, 'setDuration')}
   />
@@ -31,6 +32,7 @@
     value={training.setsCount}
     changeValue={1}
     maxValue={20}
+    minValue={1}
     units="sets"
     onChange={(value) => onParamChange(value, 'setsCount')}
   />
@@ -39,6 +41,7 @@
     value={training.restBetweenSets}
     changeValue={5}
     maxValue={120}
+    minValue={5}
     units="sec"
     onChange={(value) => onParamChange(value, 'restBetweenSets')}
   />
@@ -47,6 +50,7 @@
     value={training.cycleCount}
     changeValue={1}
     maxValue={20}
+    minValue={1}
     units="cycles"
     onChange={(value) => onParamChange(value, 'cycleCount')}
   />
