@@ -37,6 +37,8 @@
 			"$store/*": ["src/core/store/*"],
 			"$constants": ["src/core/constants"],
 			"$constants/*": ["src/core/constants/*"],
+			"$i18n": ["src/i18n"],
+			"$i18n/*": ["src/i18n/*"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]

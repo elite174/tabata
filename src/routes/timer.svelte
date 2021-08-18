@@ -35,7 +35,7 @@
   import CircleButton from '$components/CircleButton.svelte';
   import InfoBlock from '$features/timer/InfoBlock.svelte';
   import Header from '$components/Header.svelte';
-  import { i18n } from 'src/i18n';
+  import { i18n } from '$i18n';
   import { vibrate } from '$utils/vibrate';
 
   const { currentTrainingConfig } = getContext<Store>('store');
