@@ -37,6 +37,7 @@
   import Header from '$components/Header.svelte';
   import { i18n } from '$i18n';
   import { vibrate } from '$utils/vibrate';
+  import { Stage } from '$constants';
 
   const { currentTrainingConfig } = getContext<Store>('store');
 
@@ -44,7 +45,7 @@
   let generatorInstance: TimerGenerator;
 
   let time = 0;
-  let currentStage;
+  let currentStage: Stage = Stage.BEFORE_TRAINING;
   let ready = false;
   let timer: NodeJS.Timer;
 
@@ -114,13 +115,15 @@
   }
 
   $: iconName = isPlaying ? 'pause-outline' : 'play-outline';
+
+  $: stageText = i18n.stages[currentStage];
 </script>
 
 <Page {ready}>
   <div class="container">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />
     <div class="timer-container">
-      <Timer {time} stage={i18n[currentStage]} />
+      <Timer {time} stage={stageText} />
       <div class="info">
         <InfoBlock mainText="Rest" secondaryText="Next stage" />
         <InfoBlock mainText="00:30" secondaryText="Remaining time" />
@@ -151,7 +154,7 @@
   .timer-container {
     display: flex;
     flex-direction: column;
-    gap: px(40);
+    gap: px(60);
   }
 
   .info {

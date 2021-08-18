@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   import cn from 'classnames';
   import { formatTime } from '$utils';
 
   export let time = 0;
-  export let stage;
+  export let stage: string;
 
   $: formattedTime = formatTime(time);
 </script>
