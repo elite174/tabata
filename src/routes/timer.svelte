@@ -35,8 +35,8 @@
   import CircleButton from '$components/CircleButton.svelte';
   import InfoBlock from '$features/timer/InfoBlock.svelte';
   import Header from '$components/Header.svelte';
-  import { Stage } from '$constants';
   import { i18n } from 'src/i18n';
+  import { vibrate } from '$utils/vibrate';
 
   const { currentTrainingConfig } = getContext<Store>('store');
 
@@ -53,21 +53,36 @@
     const { value } = generatorInstance.next();
 
     time = value.timeRemained;
-    currentStage = i18n.stages[value.stage];
+    currentStage = value.stage;
     ready = true;
   };
 
   setInitialValue();
 
+  const finishTimer = () => {
+    isPlaying = false;
+
+    vibrate([200, 200]);
+  };
+
   const tick = () => {
     const {
-      value: { stage, timeRemained }
+      value: { stage, timeRemained },
+      done
     } = generatorInstance.next();
 
-    time = timeRemained;
-    currentStage = i18n.stages[stage];
+    if (currentStage !== stage) {
+      vibrate([100]);
+    }
 
-    timer = setTimeout(tick, 1000);
+    time = timeRemained;
+    currentStage = stage;
+
+    if (!done) {
+      timer = setTimeout(tick, 1000);
+    } else {
+      finishTimer();
+    }
   };
 
   const handlePlayButtonClick = () => {
@@ -105,7 +120,7 @@
   <div class="container">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />
     <div class="timer-container">
-      <Timer {time} stage={currentStage} />
+      <Timer {time} stage={i18n[currentStage]} />
       <div class="info">
         <InfoBlock mainText="Rest" secondaryText="Next stage" />
         <InfoBlock mainText="00:30" secondaryText="Remaining time" />
