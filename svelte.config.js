@@ -2,6 +2,9 @@ import preprocess from 'svelte-preprocess';
 import path from 'path';
 import vercel from '@sveltejs/adapter-vercel';
 
+import replace from '@rollup/plugin-replace';
+//import workbox from 'rollup-plugin-workbox-inject';
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
@@ -21,6 +24,16 @@ const config = {
           $store: path.resolve('./src/core/store'),
           $constants: path.resolve('./src/core/constants'),
           $i18n: path.resolve('./src/i18n')
+        }
+      },
+      build: {
+        rollupOptions: {
+          plugins: [
+            replace({
+              'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+            }),
+
+          ]
         }
       }
     },
