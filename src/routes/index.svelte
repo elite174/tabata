@@ -37,7 +37,7 @@
     <Header text="Training Setup" />
     <TimerForm {training} onParamChange={handleChange} class="timeform" />
     <div class="buttons">
-      <Button onClick={handleStartClick}>Start</Button>
+      <Button onClick={handleStartClick}>Start!</Button>
     </div>
   </div>
 </Page>
