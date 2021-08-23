@@ -3,7 +3,7 @@
   import { Workbox } from 'workbox-window';
 
   onMount(() => {
-    const wb = new Workbox('/sw.js');
+    const wb = new Workbox('/service-worker.js');
 
     wb.addEventListener('installed', (event) => {
       if (event.isUpdate) {
