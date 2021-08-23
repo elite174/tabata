@@ -1,5 +1,6 @@
 import { registerRoute } from 'workbox-routing';
 import { NetworkFirst, StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
+import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 
 // Used for filtering matches based on status code, header, or both
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -38,7 +39,8 @@ registerRoute(
       // Ensure that only requests that result in a 200 status are cached
       new CacheableResponsePlugin({
         statuses: [200]
-      })
+      }),
+      new BroadcastUpdatePlugin()
     ]
   })
 );

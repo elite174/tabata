@@ -12,6 +12,16 @@
     %svelte.head%
   </head>
   <body>
+    <script>
+      navigator.serviceWorker.addEventListener('message', async (event) => {
+        // Optional: ensure the message came from workbox-broadcast-update
+        if (event.data.meta === 'workbox-broadcast-update') {
+          const { cacheName, updatedURL } = event.data.payload;
+
+          console.log(cacheName, updatedURL);
+        }
+      });
+    </script>
     <div id="svelte">%svelte.body%</div>
     <script
       type="module"
