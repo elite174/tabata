@@ -41,5 +41,5 @@
 			"$i18n/*": ["src/i18n/*"],
 		}
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "static/service-worker.js"]
 }
