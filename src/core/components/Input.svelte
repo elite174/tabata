@@ -35,7 +35,7 @@
           .toString()
           .padStart(2, '0')}:${(value % 60).toString().padStart(2, '0')} ${units}`;
 
-  $: canDec = value - changeValue >= 0;
+  $: canDec = value - changeValue >= minValue;
   $: canInc = value + changeValue < maxValue;
 </script>
 
