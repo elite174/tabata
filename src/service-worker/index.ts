@@ -1,11 +1,15 @@
 import { registerRoute } from 'workbox-routing';
 import { NetworkFirst, StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
 import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
+import { clientsClaim } from 'workbox-core';
 
 // Used for filtering matches based on status code, header, or both
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 // Used to limit entries in cache, remove entries after a certain period of time
 import { ExpirationPlugin } from 'workbox-expiration';
+
+self.skipWaiting();
+clientsClaim();
 
 // Cache page navigations (html) with a Network First strategy
 registerRoute(
