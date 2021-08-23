@@ -1,10 +1,12 @@
 <script>
   import GlobalStyles from '$components/GlobalStyles.svelte';
+  import ServiceWorker from '$components/ServiceWorker/ServiceWorker.svelte';
   import StoreProvider from '$components/StoreProvider.svelte';
 </script>
 
 <StoreProvider>
   <div class="layout">
+    <ServiceWorker />
     <GlobalStyles />
     <slot />
   </div>
