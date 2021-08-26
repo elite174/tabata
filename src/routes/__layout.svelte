@@ -24,9 +24,9 @@
 
     :global(.Banner) {
       position: absolute;
-      bottom: px(4);
-      left: px(4);
-      right: px(4);
+      bottom: 0;
+      left: 0;
+      right: 0;
 
       z-index: 1;
     }
