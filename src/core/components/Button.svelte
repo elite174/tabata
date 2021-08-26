@@ -3,7 +3,6 @@
 
   type Kind = 'primary' | 'secondary';
 
-  export let onClick = undefined;
   export let accent = false;
   export let kind: Kind = 'primary';
   export let disabled = false;
@@ -13,7 +12,7 @@
 
 <button
   class={cn($$props.class, 'button')}
-  on:click={onClick}
+  on:click
   class:accent
   class:secondary={kind === 'secondary'}
   class:error
