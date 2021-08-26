@@ -7,6 +7,11 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 // Used to limit entries in cache, remove entries after a certain period of time
 import { ExpirationPlugin } from 'workbox-expiration';
 
+import { clientsClaim } from 'workbox-core';
+
+self.skipWaiting();
+clientsClaim();
+
 // Cache page navigations (html) with a Network First strategy
 registerRoute(
   // Check to see if the request is a navigation to a new page
