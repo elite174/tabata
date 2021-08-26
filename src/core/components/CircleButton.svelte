@@ -14,20 +14,11 @@
   @use 'styles/lib' as *;
 
   .circleButton {
-    --icon-color: var(--color-neutral);
+    --icon-color: var(--color-accent);
 
     display: grid;
     place-items: center;
     width: px(60);
     height: px(60);
-
-    border-radius: 50%;
-
-    background-color: var(--color-accent);
-
-    &.correctLeft :global(.icon) {
-      position: relative;
-      left: px(2);
-    }
   }
 </style>

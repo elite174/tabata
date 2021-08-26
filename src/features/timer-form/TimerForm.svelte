@@ -81,7 +81,7 @@
     grid-template-columns: auto;
     align-items: start;
     justify-items: center;
-    gap: px(12);
+    gap: px(16);
 
     padding: 0 px(24);
   }

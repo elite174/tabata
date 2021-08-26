@@ -43,11 +43,11 @@
   <div class="name">{name}</div>
   <div class="row">
     <button class="button" disabled={!canDec} on:click={handleDec}>
-      <Icon name="remove-outline" size={20} />
+      <Icon name="remove-outline" size={32} />
     </button>
     <span class="text">{formattedValue}</span>
     <button class="button" disabled={!canInc} on:click={handleInc}>
-      <Icon name="add-outline" size={20} />
+      <Icon name="add-outline" size={32} />
     </button>
   </div>
 </div>
@@ -57,9 +57,9 @@
 
   .container {
     width: 100%;
+    max-width: px(300);
 
     padding-bottom: px(12);
-    border-bottom: 1px solid var(--color-accent);
   }
 
   .name {
@@ -77,7 +77,7 @@
   }
 
   .text {
-    @include bold(32);
+    @include bold(40);
     font-weight: 600;
 
     margin: 0 px(12);
@@ -91,8 +91,6 @@
     place-items: center;
 
     flex-shrink: 0;
-    border: px(2) solid var(--border-color);
-    border-radius: 50%;
 
     width: px(32);
     height: px(32);

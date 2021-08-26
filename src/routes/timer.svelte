@@ -133,7 +133,6 @@
       <CircleButton name="stop-outline" on:click={handleStopButtonClick} />
       <CircleButton
         name={iconName}
-        correctLeft={iconName === 'play-outline'}
         on:click={handlePlayButtonClick}
       />
     </div>
