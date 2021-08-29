@@ -134,7 +134,7 @@
       </div>
     </div>
     <div class="buttons">
-      <CircleButton name="stop-outline" on:click={handleStopButtonClick} disabled={isPlaying} />
+      <CircleButton name="stop-outline" on:click={handleStopButtonClick} disabled={!isPlaying} />
       <CircleButton name={iconName} on:click={handlePlayButtonClick} />
     </div>
   </div>
