@@ -39,6 +39,7 @@
   import { vibrate } from '$utils/vibrate';
   import { Stage } from '$constants';
   import { formatTime } from '$utils';
+  import { lockScreen } from '$utils/wake-lock';
 
   const { currentTrainingConfig } = getContext<Store>('store');
 
@@ -51,6 +52,16 @@
   let ready = false;
   let timer: NodeJS.Timer;
   let nextStage: Stage = Stage.END;
+
+  let releaseWakeLockFunction: VoidFunction | null = null;
+
+  const setReleaseWakeLockFunction = (f: VoidFunction | null) => {
+    releaseWakeLockFunction = f;
+  };
+
+  const clearWakeLock = () => {
+    releaseWakeLockFunction?.();
+  };
 
   const setInitialValue = () => {
     const { totalTrainingTime, pipeline } = makeTraining($currentTrainingConfig!);
@@ -105,16 +116,20 @@
     goto('/');
   };
 
+  const cleanUp = () => {
+    clearTimer();
+    clearWakeLock();
+  };
+
   onMount(() => {
-    return () => {
-      clearTimer();
-    };
+    return cleanUp;
   });
 
   $: if (isPlaying) {
     tick();
+    lockScreen().then(setReleaseWakeLockFunction).catch(clearWakeLock);
   } else {
-    clearTimer();
+    cleanUp();
   }
 
   $: iconName = isPlaying ? 'pause-outline' : 'play-outline';
