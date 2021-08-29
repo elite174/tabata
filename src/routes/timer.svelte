@@ -37,7 +37,7 @@
   import Header from '$components/Header.svelte';
   import { i18n } from '$i18n';
   import { vibrate } from '$utils/vibrate';
-  import { Stage } from '$constants';
+  import type { Stage } from '$constants';
   import { formatTime } from '$utils';
   import WakeLock from '$components/service/WakeLock.svelte';
 
@@ -51,7 +51,7 @@
 
   let ready = false;
   let timer: NodeJS.Timer;
-  let nextStage: Stage = Stage.END;
+  let nextStage: Stage | undefined;
 
   const setInitialValue = () => {
     const { totalTrainingTime, pipeline } = makeTraining($currentTrainingConfig!);
@@ -71,23 +71,23 @@
   };
 
   const tick = () => {
-    remainingTime -= 1;
+    if (totalRemainingTime === 0 && currentStageIndex + 1 === trainingPipeline.length) {
+      finishTimer();
+
+      return;
+    }
+
     totalRemainingTime -= 1;
+    remainingTime -= 1;
 
     if (remainingTime < 0) {
       currentStageIndex += 1;
       remainingTime = trainingPipeline[currentStageIndex].duration - 1;
 
-      if (currentStageIndex + 1 < trainingPipeline.length) {
-        vibrate([100]);
-      }
+      vibrate([100]);
     }
 
-    if (trainingPipeline[currentStageIndex].stage !== Stage.END) {
-      timer = setTimeout(tick, 1000);
-    } else {
-      finishTimer();
-    }
+    timer = setTimeout(tick, 1000);
   };
 
   const handlePlayButtonClick = () => {
@@ -122,8 +122,8 @@
 
   $: iconName = isPlaying ? 'pause-outline' : 'play-outline';
   $: stageText = i18n.stages[trainingPipeline[currentStageIndex].stage];
-  $: nextStage = trainingPipeline[currentStageIndex + 1].stage;
-  $: nextStageText = i18n.stages[nextStage] || '-';
+  $: nextStage = trainingPipeline[currentStageIndex + 1]?.stage;
+  $: nextStageText = nextStage ? i18n.stages[nextStage] : '-';
 </script>
 
 <Page {ready}>

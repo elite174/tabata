@@ -76,11 +76,6 @@ export const makeTraining = (
     totalTrainingTime += afterTraining;
   }
 
-  pipeline.push({
-    stage: Stage.END,
-    duration: 0
-  });
-
   return {
     pipeline,
     totalTrainingTime
