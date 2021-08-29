@@ -3,5 +3,6 @@ export const enum Stage {
     SET = 'SET',
     REST = 'REST',
     CYCLE_REST = 'CYCLE_REST',
-    AFTER_TRAINING = 'AFTER_TRAINING'
+    AFTER_TRAINING = 'AFTER_TRAINING',
+    END = 'END'
 }

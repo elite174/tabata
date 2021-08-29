@@ -1,64 +1,88 @@
 import type { TrainingData } from '../typings';
 import { Stage } from '../constants';
 
-interface TimerState {
-  stage: Stage | null;
-  nextStage?: Stage | null;
-  timeRemained: number;
-  cyclesRemained?: number;
-  setsRemained?: number;
-  finished?: boolean;
-}
+type Options = {
+  skipStages?: Set<Stage>;
+};
 
-export type TimerGenerator = Generator<TimerState, TimerState, TimerState>;
+export type StageConfig = { stage: Stage; duration: number };
 
-export function* getNextState(config: TrainingData): TimerGenerator {
-  let timeRemained: number;
+type Output = {
+  totalTrainingTime: number;
+  pipeline: StageConfig[];
+};
 
-  for (timeRemained = config.beforeTraining; timeRemained >= 0; timeRemained--) {
-    yield { stage: Stage.BEFORE_TRAINING, timeRemained, nextStage: Stage.SET };
+export const makeTraining = (
+  {
+    beforeTraining,
+    cycleCount,
+    setsCount,
+    setDuration,
+    restBetweenCycles,
+    restBetweenSets,
+    afterTraining
+  }: TrainingData,
+  { skipStages }: Options = {}
+): Output => {
+  const pipeline: StageConfig[] = [];
+  let totalTrainingTime = 0;
+
+  if (!skipStages?.has(Stage.BEFORE_TRAINING) && beforeTraining) {
+    pipeline.push({
+      stage: Stage.BEFORE_TRAINING,
+      duration: beforeTraining
+    });
+
+    totalTrainingTime += beforeTraining;
   }
 
-  for (let cyclesRemained = config.cycleCount - 1; cyclesRemained >= 0; cyclesRemained--) {
-    for (let setsRemained = config.setsCount - 1; setsRemained >= 0; setsRemained--) {
-      for (timeRemained = config.setDuration; timeRemained >= 0; timeRemained--) {
-        yield {
+  for (let cycleIndex = 1; cycleIndex <= cycleCount; cycleIndex++) {
+    for (let setIndex = 1; setIndex <= setsCount; setIndex++) {
+      if (setDuration) {
+        pipeline.push({
           stage: Stage.SET,
-          cyclesRemained,
-          setsRemained,
-          timeRemained
-        };
-      }
+          duration: setDuration
+        });
 
-      if (setsRemained > 0) {
-        for (timeRemained = config.restBetweenSets; timeRemained >= 0; timeRemained--) {
-          yield {
+        totalTrainingTime += setDuration;
+
+        if (restBetweenSets && setIndex < setsCount) {
+          pipeline.push({
             stage: Stage.REST,
-            timeRemained
-          };
+            duration: restBetweenSets
+          });
+
+          totalTrainingTime += restBetweenSets;
         }
       }
     }
 
-    if (cyclesRemained > 0) {
-      for (timeRemained = config.restBetweenCycles; timeRemained >= 0; timeRemained--) {
-        yield {
-          stage: Stage.CYCLE_REST,
-          timeRemained
-        };
-      }
+    if (restBetweenCycles && cycleIndex < cycleCount) {
+      pipeline.push({
+        stage: Stage.CYCLE_REST,
+        duration: restBetweenCycles
+      });
+
+      totalTrainingTime += restBetweenCycles;
     }
   }
 
-  for (timeRemained = config.afterTraining; timeRemained >= 1; timeRemained--) {
-    yield {
+  if (!skipStages?.has(Stage.AFTER_TRAINING) && afterTraining) {
+    pipeline.push({
       stage: Stage.AFTER_TRAINING,
-      timeRemained
-    };
+      duration: afterTraining
+    });
+
+    totalTrainingTime += afterTraining;
   }
 
+  pipeline.push({
+    stage: Stage.END,
+    duration: 0
+  });
+
   return {
-    stage: Stage.AFTER_TRAINING,
-    timeRemained: 0
+    pipeline,
+    totalTrainingTime
   };
-}
+};

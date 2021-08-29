@@ -29,8 +29,8 @@
   import Page from '$components/Page.svelte';
   import Timer from '$features/timer/Timer.svelte';
   import type { Store } from '$store';
-  import { getNextState } from '$utils/training';
-  import type { TimerGenerator } from '$utils/training';
+  import type { StageConfig } from '$utils/training';
+  import { makeTraining } from '$utils/training';
   import { getContext, onMount } from 'svelte';
   import CircleButton from '$components/CircleButton.svelte';
   import InfoBlock from '$features/timer/InfoBlock.svelte';
@@ -38,23 +38,26 @@
   import { i18n } from '$i18n';
   import { vibrate } from '$utils/vibrate';
   import { Stage } from '$constants';
+  import { formatTime } from '$utils';
 
   const { currentTrainingConfig } = getContext<Store>('store');
 
   let isPlaying = false;
-  let generatorInstance: TimerGenerator;
+  let trainingPipeline: StageConfig[] = [];
+  let remainingTime = 0;
+  let totalRemainingTime = 0;
+  let currentStageIndex = 0;
 
-  let time = 0;
-  let currentStage: Stage = Stage.BEFORE_TRAINING;
   let ready = false;
   let timer: NodeJS.Timer;
+  let nextStage: Stage = Stage.END;
 
   const setInitialValue = () => {
-    generatorInstance = getNextState($currentTrainingConfig);
-    const { value } = generatorInstance.next();
+    const { totalTrainingTime, pipeline } = makeTraining($currentTrainingConfig!);
 
-    time = value.timeRemained;
-    currentStage = value.stage;
+    trainingPipeline = pipeline;
+    totalRemainingTime = totalTrainingTime;
+    remainingTime = pipeline[currentStageIndex].duration;
     ready = true;
   };
 
@@ -67,19 +70,19 @@
   };
 
   const tick = () => {
-    const {
-      value: { stage, timeRemained },
-      done
-    } = generatorInstance.next();
+    remainingTime -= 1;
+    totalRemainingTime -= 1;
 
-    if (currentStage !== stage) {
-      vibrate([100]);
+    if (remainingTime < 0) {
+      currentStageIndex += 1;
+      remainingTime = trainingPipeline[currentStageIndex].duration - 1;
+
+      if (currentStageIndex + 1 < trainingPipeline.length) {
+        vibrate([100]);
+      }
     }
 
-    time = timeRemained;
-    currentStage = stage;
-
-    if (!done) {
+    if (trainingPipeline[currentStageIndex].stage !== Stage.END) {
       timer = setTimeout(tick, 1000);
     } else {
       finishTimer();
@@ -115,26 +118,24 @@
   }
 
   $: iconName = isPlaying ? 'pause-outline' : 'play-outline';
-
-  $: stageText = i18n.stages[currentStage];
+  $: stageText = i18n.stages[trainingPipeline[currentStageIndex].stage];
+  $: nextStage = trainingPipeline[currentStageIndex + 1].stage;
+  $: nextStageText = i18n.stages[nextStage] || '-';
 </script>
 
 <Page {ready}>
   <div class="container">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />
     <div class="timer-container">
-      <Timer {time} stage={stageText} />
+      <Timer time={remainingTime} stage={stageText} />
       <div class="info">
-        <InfoBlock mainText="Rest" secondaryText="Next stage" />
-        <InfoBlock mainText="00:30" secondaryText="Remaining time" />
+        <InfoBlock mainText={nextStageText} secondaryText="Next stage" />
+        <InfoBlock mainText={formatTime(totalRemainingTime)} secondaryText="Remaining time" />
       </div>
     </div>
     <div class="buttons">
-      <CircleButton name="stop-outline" on:click={handleStopButtonClick} />
-      <CircleButton
-        name={iconName}
-        on:click={handlePlayButtonClick}
-      />
+      <CircleButton name="stop-outline" on:click={handleStopButtonClick} disabled={isPlaying} />
+      <CircleButton name={iconName} on:click={handlePlayButtonClick} />
     </div>
   </div>
 </Page>

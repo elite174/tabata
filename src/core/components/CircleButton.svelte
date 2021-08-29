@@ -4,9 +4,10 @@
 
   export let name: string;
   export let correctLeft = false;
+  export let disabled = false;
 </script>
 
-<button class={cn($$props.class, 'circleButton')} class:correctLeft on:click>
+<button class={cn($$props.class, 'circleButton')} class:correctLeft {disabled} on:click>
   <Icon {name} size={30} class="icon" />
 </button>
 
