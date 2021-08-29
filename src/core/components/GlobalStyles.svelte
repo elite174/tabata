@@ -1,4 +1,4 @@
-<style>
+<style lang="scss">
   :global(:root) {
     --font-family: 'Rubik', sans-serif;
     --color-text: rgb(12, 12, 12);
@@ -24,5 +24,9 @@
     background: none;
     padding: 0;
     cursor: pointer;
+
+    &:disabled {
+      cursor: revert;
+    }
   }
 </style>
