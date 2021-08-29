@@ -3,7 +3,7 @@
   import { fly } from 'svelte/transition';
   import { Workbox } from 'workbox-window';
   import cn from 'classnames';
-  import Button from './Button.svelte';
+  import Button from '../Button.svelte';
 
   let needUpdate = false;
 

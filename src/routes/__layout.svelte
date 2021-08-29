@@ -1,6 +1,6 @@
 <script>
   import GlobalStyles from '$components/GlobalStyles.svelte';
-  import ServiceWorker from '$components/ServiceWorker.svelte';
+  import ServiceWorker from '$components/service/ServiceWorker.svelte';
   import StoreProvider from '$components/StoreProvider.svelte';
 </script>
 
