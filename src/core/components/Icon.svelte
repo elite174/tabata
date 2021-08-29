@@ -8,11 +8,16 @@
 
 <ion-icon class={cn($$props.class, 'icon')} {name} style={`--icon-size: ${pxToRem(size)}rem`} />
 
-<style>
+<style lang="scss">
+  @use 'styles/lib' as *;
   .icon {
-    visibility: visible !important;
+    @include withTransition(
+      $properties: (
+        color
+      )
+    );
 
-    color: var(--icon-color);
+    color: currentColor;
     font-size: var(--icon-size);
   }
 </style>

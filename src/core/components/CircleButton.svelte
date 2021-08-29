@@ -21,7 +21,7 @@
       )
     );
 
-    --icon-color: var(--color-accent);
+    color: var(--color-accent);
 
     display: grid;
     place-items: center;
@@ -31,7 +31,7 @@
     border-radius: px(24);
 
     &:disabled {
-      --icon-color: var(--color-disabled);
+      color: var(--color-disabled);
     }
 
     &:hover {
