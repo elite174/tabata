@@ -40,7 +40,7 @@
 </script>
 
 <div class="Input">
-  <div class="name">{name}</div>
+  <div class="Input-Name">{name}</div>
   <div class="row">
     <CircleButton
       class="Input-Button"
@@ -67,10 +67,10 @@
     }
   }
 
-  .name {
+  .Input-Name {
     @include regular(16);
 
-    margin-bottom: px(8);
+    margin-bottom: px(4);
     text-align: center;
     color: var(--color-text-secondary);
   }
