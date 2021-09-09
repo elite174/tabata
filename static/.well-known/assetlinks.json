@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "app.vercel.tabata_xi.twa",
+                     "sha256_cert_fingerprints": ["6F:67:A0:46:03:38:03:07:F0:E1:AC:CF:30:20:59:21:5D:5C:A9:DF:1E:6B:F1:B3:D7:6E:DE:DD:C1:97:68:3B"] }
+      }
+]
