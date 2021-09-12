@@ -1,6 +1,13 @@
-[{
-        "relation": ["delegate_permission/common.handle_all_urls"],
-        "target" : { "namespace": "android_app", "package_name": "app.vercel.tabata_xi.twa",
-                     "sha256_cert_fingerprints": ["6F:67:A0:46:03:38:03:07:F0:E1:AC:CF:30:20:59:21:5D:5C:A9:DF:1E:6B:F1:B3:D7:6E:DE:DD:C1:97:68:3B"] }
-      }
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.tabata_xi.twa",
+      "sha256_cert_fingerprints": [
+        "6F:67:A0:46:03:38:03:07:F0:E1:AC:CF:30:20:59:21:5D:5C:A9:DF:1E:6B:F1:B3:D7:6E:DE:DD:C1:97:68:3B",
+        "1C:3A:73:F0:93:CE:33:64:92:E1:23:00:88:12:5C:3D:7D:0E:DC:A8:45:AA:89:43:39:3B:98:2B:9C:44:CC:9E"
+      ]
+    }
+  }
 ]
