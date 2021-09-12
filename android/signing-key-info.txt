@@ -1,0 +1,10 @@
+Keep your this file and signing.keystore in a safe place. You'll need these files if you want to upload future versions of your PWA to the Google Play Store.
+
+Key store file: signing.keystore
+Key store password: tJ5IJ2Axvwc9
+Key alias: my-tabata-app
+Key password: DxPZuxwHmWTz
+Signer's full name: Vladislav Lipatov
+Signer's organization: IE Vladislav Lipatov
+Signer's organizational unit: Engineering
+Signer's country code: RU
