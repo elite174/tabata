@@ -23,11 +23,11 @@
   }
 
   .time {
-    @include bold(80);
+    @include bold(90);
   }
 
   .stage {
-    @include regular(24);
+    @include regular(36);
 
     margin-top: px(4);
   }

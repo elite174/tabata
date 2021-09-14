@@ -48,7 +48,7 @@
       name="remove-outline"
       on:click={handleDec}
     />
-    <span class="text">{formattedValue}</span>
+    <span class="Input-Text">{formattedValue}</span>
     <CircleButton class="Input-Button" disabled={!canInc} name="add-outline" on:click={handleInc} />
   </div>
 </div>
@@ -58,7 +58,6 @@
 
   .Input {
     width: 100%;
-    max-width: px(300);
 
     padding-bottom: px(12);
 
@@ -68,7 +67,7 @@
   }
 
   .Input-Name {
-    @include regular(16);
+    @include regular(20);
 
     margin-bottom: px(4);
     text-align: center;
@@ -81,9 +80,11 @@
     justify-content: space-between;
   }
 
-  .text {
+  .Input-Text {
     @include bold(40);
     font-weight: 600;
+
+    text-align: center;
 
     margin: 0 px(12);
   }

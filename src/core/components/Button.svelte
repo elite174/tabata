@@ -28,14 +28,14 @@
   .button {
     @include regular(16);
 
-    --button-color: var(--color-text);
+    --button-color: var(--color-accent);
     --button-text-color: var(--color-neutral);
 
     height: px(40);
 
     background-color: var(--button-color);
     color: var(--button-text-color);
-    border-radius: px(4);
+    border-radius: px(40);
   }
 
   .secondary {

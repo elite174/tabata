@@ -15,7 +15,7 @@
     text-align: center;
 
     &-Main {
-      @include bold(24);
+      @include bold(32);
       
       margin-bottom: px(4);
     }

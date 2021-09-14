@@ -1,18 +1,18 @@
-<script>
+<script lang="ts">
   import Icon from './Icon.svelte';
 
-  export let text;
-  export let onBackButtonClick = undefined;
+  export let text: string;
+  export let onBackButtonClick: VoidFunction | undefined = undefined;
 </script>
 
 <div class="Header">
-  <div>
-    {#if onBackButtonClick}
-      <button on:click={onBackButtonClick}>
-        <Icon size={24} name="arrow-back-outline" />
-      </button>
-    {/if}
-  </div>
+  {#if onBackButtonClick}
+    <button class="Header-Button" on:click={onBackButtonClick}>
+      <Icon size={28} name="arrow-back-outline" />
+    </button>
+  {:else}
+    <div />
+  {/if}
   <div class="Header-Text">{text}</div>
 </div>
 
@@ -24,10 +24,21 @@
     grid-template-columns: px(60) 1fr px(60);
     place-items: center;
 
-    height: px(60);
+    text-align: center;
+
+    padding: px(10) 0 px(20);
 
     &-Text {
-      @include regular(28);
+      @include bold(28);
+    }
+
+    &-Button {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      color: var(--color-accent);
     }
   }
 </style>

@@ -155,25 +155,29 @@
 <Page {ready}>
   <Audio playTrigger={audioPlayTrigger} {activeSound} />
   <WakeLock lock />
-  <div class="container">
+  <div class="Timer">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />
-    <div class="timer-container">
+    <div class="Timer-Container">
       <Timer time={remainingTime} stage={stageText} />
-      <div class="info">
+      <div class="Timer-Info">
         <InfoBlock mainText={nextStageText} secondaryText="Next stage" />
         <InfoBlock mainText={formatTime(totalRemainingTime)} secondaryText="Remaining time" />
       </div>
     </div>
-    <div class="buttons">
+    <div class="Timer-Buttons">
       <CircleButton name="stop-outline" on:click={handleStopButtonClick} disabled={isPlaying} />
-      <CircleButton name={iconName} on:click={handlePlayButtonClick} />
+      <CircleButton
+        name={iconName}
+        on:click={handlePlayButtonClick}
+        correctLeft={iconName === 'play-outline'}
+      />
     </div>
   </div>
 </Page>
 
 <style lang="scss">
   @use 'styles/lib' as *;
-  .container {
+  .Timer {
     display: grid;
     grid-template-rows: auto 4fr 1fr;
 
@@ -182,22 +186,21 @@
     height: 100%;
   }
 
-  .timer-container {
+  .Timer-Container {
     display: flex;
     flex-direction: column;
-    gap: px(60);
+    gap: px(80);
   }
 
-  .info {
+  .Timer-Info {
     display: grid;
     grid-template-columns: repeat(2, auto);
     place-items: center;
-    gap: px(24);
-
     justify-content: center;
+    gap: px(40);
   }
 
-  .buttons {
+  .Timer-Buttons {
     display: grid;
     grid-template-columns: auto auto;
     gap: px(60);

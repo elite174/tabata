@@ -78,11 +78,10 @@
   :global(.timeformContainer) {
     display: grid;
     grid-auto-flow: row;
-    grid-template-columns: auto;
+    grid-template-columns: minmax(0, 330px);
     align-items: start;
     justify-items: center;
-    gap: px(16);
-
-    padding: 0 px(24);
+    justify-content: center;
+    gap: px(16);;
   }
 </style>

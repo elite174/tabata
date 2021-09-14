@@ -8,7 +8,7 @@
 </script>
 
 <button class={cn($$props.class, 'circleButton')} class:correctLeft {disabled} on:click>
-  <Icon {name} size={30} class="icon" />
+  <Icon {name} size={30} />
 </button>
 
 <style lang="scss">
@@ -17,7 +17,8 @@
   .circleButton {
     @include withTransition(
       $properties: (
-        background-color
+        background-color,
+        color
       )
     );
 
@@ -28,7 +29,12 @@
     width: px(60);
     height: px(60);
 
-    border-radius: px(24);
+    border-radius: 50%;
+    box-shadow: 0 6px 40px rgba(0, 0, 0, 0.07);
+
+    &.correctLeft {
+      padding-left: px(4);
+    }
 
     &:disabled {
       color: var(--color-disabled);

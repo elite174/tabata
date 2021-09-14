@@ -2,13 +2,20 @@
 @use 'sass:list';
 
 @mixin withBorderRadius($borderRadius: px(8)) {
-	border-radius: $borderRadius;
+  border-radius: $borderRadius;
 }
 
 @mixin withBoxShadow() {
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
 }
 
 @mixin withTransition($time: 100ms, $timingFunction: ease-in-out, $properties) {
-	transition: list.join($properties, (), $separator: comma) $time $timingFunction;
+  $transition-list: ();
+
+  @each $p in $properties {
+    $temp-l: list.append(($p, $time), $timingFunction, $separator: space);
+    $transition-list: list.append($transition-list, $temp-l, $separator: comma);
+  }
+
+  transition: $transition-list;
 }

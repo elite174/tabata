@@ -1,5 +1,5 @@
 <script>
-  import GlobalStyles from '$components/GlobalStyles.svelte';
+  import GlobalStyles from '$components/service/GlobalStyles.svelte';
   import ServiceWorker from '$components/service/ServiceWorker.svelte';
   import StoreProvider from '$components/StoreProvider.svelte';
 </script>

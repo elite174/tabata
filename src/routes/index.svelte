@@ -50,16 +50,16 @@
     grid-template-rows: auto 1fr auto;
 
     height: 100%;
-  }
 
-  :global(.timeform) {
-    height: 100%;
+    :global(.timeform) {
+      height: 100%;
+    }
   }
 
   .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: px(8);
+    display: grid;
+    grid-template-columns: minmax(0, px(330));
+    justify-content: center;
     padding: px(12);
   }
 </style>
