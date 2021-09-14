@@ -3,8 +3,8 @@
 </script>
 
 <nav class="menu">
-  <NavigationButton href="/trainings" name="list" />
-  <NavigationButton href="/go" name="settings" />
+  <NavigationButton href="/" name="list-outline" />
+  <NavigationButton href="/settings" name="settings-outline" />
 </nav>
 
 <style lang="scss">

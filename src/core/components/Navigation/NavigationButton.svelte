@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import Icon from '$components/Icon.svelte';
 
-  export let name;
-  export let href;
+  export let name: string;
+  export let href: string;
 </script>
 
 <a {href} class="navigationButton">
