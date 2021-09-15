@@ -1,6 +1,12 @@
 @use '../utils.scss' as *;
+@use './decorations.scss' as decoration;
 
 @mixin basefont() {
+  @include decoration.withTransition(
+    $properties: (
+      color
+    )
+  );
   font-family: var(--font-family);
 }
 
