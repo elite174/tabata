@@ -1,32 +1,51 @@
-<script>
+<script lang="ts">
   import Icon from '$components/Icon.svelte';
 
-  export let name;
-  export let href;
+  export let name: string;
+  export let href: string;
+  export let text: string;
+  export let active = false;
 </script>
 
-<a {href} class="navigationButton">
-  <Icon {name} size={24} />
+<a {href} class="NavigationButton" class:active on:click>
+  <Icon {name} size={28} />
+  <span class="NavigationButton-Text">{text}</span>
 </a>
 
 <style lang="scss">
-  @use 'styles/lib' as lib;
+  @use 'styles/lib' as *;
 
-  .navigationButton {
-    @include lib.withTransition($properties: background-color);
+  .NavigationButton {
+    @include withTransition($properties: background-color);
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: px(4);
 
-    width: 100%;
-    height: 100%;
+    padding: px(8);
+    border-radius: var(--border-radius);
 
     color: inherit;
     text-decoration: none;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.4);
+    &:active {
+      background-color: var(--color-hover);
+    }
+
+    &-Text {
+      @include regular(12);
+
+      color: var(--color-text-secondary);
+    }
+
+    &.active {
+      color: var(--color-accent);
+
+      .NavigationButton-Text {
+        color: var(--color-accent);
+      }
     }
   }
 </style>

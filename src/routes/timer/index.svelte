@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import { get } from 'svelte/store';
-  import { store } from '$store';
+  import { runtimeStore } from '$store/runtimeStore';
 
   export const ssr = false;
 
@@ -8,7 +8,7 @@
    * @type {import('@sveltejs/kit').Load}
    */
   export async function load({}) {
-    const hasConfig = get(store.currentTrainingConfig) !== null;
+    const hasConfig = get(runtimeStore.currentTrainingConfig) !== null;
 
     if (!hasConfig) {
       return {
@@ -28,7 +28,7 @@
 
   import Page from '$components/Page.svelte';
   import Timer from '$features/timer/Timer.svelte';
-  import type { Store } from '$store';
+  import type { RuntimeStore } from '$store/runtimeStore';
   import type { StageConfig } from '$utils/training';
   import { makeTraining } from '$utils/training';
   import { getContext, onMount } from 'svelte';
@@ -36,15 +36,16 @@
   import InfoBlock from '$features/timer/InfoBlock.svelte';
   import Header from '$components/Header.svelte';
   import { i18n } from '$i18n';
-  import { vibrate } from '$utils/vibrate';
-  import type { Stage } from '$constants';
+  import { ContextKeys, Stage } from '$constants';
   import { formatTime } from '$utils';
   import WakeLock from '$components/service/WakeLock.svelte';
-  import type { Sound } from '$utils/sound/sound';
+  import type { Sound } from '$components/service/AudioService.svelte';
 
-  import Audio from '$components/service/Audio.svelte';
+  import type { VibrateService } from '$components/service/VibrationService.svelte';
+  import AudioService from '$components/service/AudioService.svelte';
 
-  const { currentTrainingConfig } = getContext<Store>('store');
+  const { currentTrainingConfig } = getContext<RuntimeStore>(ContextKeys.RuntimeStore);
+  const { vibrate } = getContext<VibrateService>(ContextKeys.VibrateService);
 
   let trainingTime = 0;
   let isPlaying = false;
@@ -153,7 +154,7 @@
 </script>
 
 <Page {ready}>
-  <Audio playTrigger={audioPlayTrigger} {activeSound} />
+  <AudioService playTrigger={audioPlayTrigger} {activeSound} />
   <WakeLock lock />
   <div class="Timer">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />

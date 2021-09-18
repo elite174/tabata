@@ -1,5 +1,4 @@
 <script>
-  import Navigation from '$components/Navigation/Navigation.svelte';
   import GlobalStyles from '$components/service/GlobalStyles.svelte';
   import ServiceWorker from '$components/service/ServiceWorker.svelte';
   import StoreProvider from '$components/service/StoreProvider.svelte';
@@ -12,9 +11,6 @@
     <div class="layout">
       <ServiceWorker class="Banner" />
       <slot />
-      <slot name="navigation">
-        <Navigation />
-      </slot>
     </div>
   </VibrationService>
 </StoreProvider>

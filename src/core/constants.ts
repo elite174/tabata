@@ -5,3 +5,9 @@ export const enum Stage {
   CYCLE_REST = 'CYCLE_REST',
   AFTER_TRAINING = 'AFTER_TRAINING'
 }
+
+export enum ContextKeys {
+  SettingsStore = 'SettingsStore',
+  RuntimeStore = 'RuntimeStore',
+  VibrateService = 'VibrateService'
+}
