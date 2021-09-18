@@ -173,7 +173,6 @@
       />
     </div>
   </div>
-  <div slot="navigation" />
 </Page>
 
 <style lang="scss">

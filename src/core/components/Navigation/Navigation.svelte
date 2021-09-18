@@ -52,6 +52,6 @@
     align-items: center;
     justify-content: space-evenly;
 
-    padding-bottom: px(12);
+    padding-bottom: px(8);
   }
 </style>
