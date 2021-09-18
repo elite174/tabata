@@ -4,8 +4,8 @@ import type { TrainingData } from '../typings';
 
 const currentTrainingConfig = writable<TrainingData | null>(null);
 
-export const store = {
+export const runtimeStore = {
   currentTrainingConfig
 };
 
-export type Store = typeof store;
+export type RuntimeStore = typeof runtimeStore;

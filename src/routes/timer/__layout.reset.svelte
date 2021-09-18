@@ -1,15 +1,18 @@
 <script>
   import GlobalStyles from '$components/service/GlobalStyles.svelte';
   import ServiceWorker from '$components/service/ServiceWorker.svelte';
-  import StoreProvider from '$components/StoreProvider.svelte';
+  import StoreProvider from '$components/service/StoreProvider.svelte';
+  import VibrationService from '$components/service/VibrationService.svelte';
 </script>
 
 <StoreProvider>
-  <GlobalStyles />
-  <div class="layout">
-    <ServiceWorker class="Banner" />
-    <slot />
-  </div>
+  <VibrationService>
+    <GlobalStyles />
+    <div class="layout">
+      <ServiceWorker class="Banner" />
+      <slot />
+    </div>
+  </VibrationService>
 </StoreProvider>
 
 <style lang="scss">

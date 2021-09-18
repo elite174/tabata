@@ -4,13 +4,14 @@
   import Button from '$components/Button.svelte';
   import Header from '$components/Header.svelte';
   import Page from '$components/Page.svelte';
+  import { ContextKeys } from '$constants';
 
   import TimerForm from '$features/timer-form/TimerForm.svelte';
-  import type { Store } from '$store';
+  import type { RuntimeStore } from '$store/runtimeStore';
   import type { TrainingData } from 'src/core/typings';
   import { getContext } from 'svelte';
 
-  const { currentTrainingConfig } = getContext<Store>('store');
+  const { currentTrainingConfig } = getContext<RuntimeStore>(ContextKeys.RuntimeStore);
 
   let training: TrainingData = {
     beforeTraining: 5,

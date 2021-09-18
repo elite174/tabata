@@ -30,7 +30,7 @@
     color: inherit;
     text-decoration: none;
 
-    &:hover {
+    &:active {
       background-color: var(--color-hover);
     }
 
