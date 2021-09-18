@@ -8,7 +8,7 @@
     --color-neutral: rgb(243, 243, 243);
     --color-hover: rgba(0, 0, 0, 0.1);
     --color-active: rgba(59, 133, 230, 0.3);
-    --color-background: rgb(238, 238, 238);
+    --color-background: rgb(245, 245, 245);
     --color-panel: rgb(230, 230, 230);
 
     --color-accent: rgb(60, 151, 211);
