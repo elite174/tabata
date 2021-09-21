@@ -9,5 +9,6 @@ export const enum Stage {
 export enum ContextKeys {
   SettingsStore = 'SettingsStore',
   RuntimeStore = 'RuntimeStore',
-  VibrateService = 'VibrateService'
+  VibrateService = 'VibrateService',
+  RouterStore = 'RouterStore'
 }

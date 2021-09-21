@@ -17,33 +17,40 @@
       text: 'Settings'
     }
   ];
+
+  const disableNavigationRoutes = new Set(['/timer']);
 </script>
 
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { getContext } from 'svelte';
+  import type { Writable } from 'svelte/store';
+
+  import { ContextKeys } from '$constants';
+  import type { RouterStore } from '$store/routerStore';
 
   import NavigationButton from './NavigationButton.svelte';
 
-  let activeRoute: string = '/';
+  const routerStore = getContext<Writable<RouterStore>>(ContextKeys.RouterStore);
 
-  if (browser) {
-    activeRoute = window.location.pathname;
-  }
+  $: activeRoute = $routerStore.currentPath;
+  $: showNavigation = !disableNavigationRoutes.has(activeRoute);
 
   const handleClick = (route: string) => () => (activeRoute = route);
 </script>
 
-<nav class="menu">
-  {#each routes as route (route.href)}
-    <NavigationButton
-      href={route.href}
-      name={route.iconName}
-      text={route.text}
-      active={activeRoute === route.href}
-      on:click={handleClick(route.href)}
-    />
-  {/each}
-</nav>
+{#if showNavigation}
+  <nav class="menu">
+    {#each routes as route (route.href)}
+      <NavigationButton
+        href={route.href}
+        name={route.iconName}
+        text={route.text}
+        active={activeRoute === route.href}
+        on:click={handleClick(route.href)}
+      />
+    {/each}
+  </nav>
+{/if}
 
 <style lang="scss">
   @use 'styles/lib' as *;
