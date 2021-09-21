@@ -151,6 +151,7 @@
   $: stageText = i18n.stages[trainingPipeline[currentStageIndex].stage];
   $: nextStage = trainingPipeline[currentStageIndex + 1]?.stage;
   $: nextStageText = nextStage ? i18n.stages[nextStage] : '-';
+  $: isFinished = totalRemainingTime===0;
 </script>
 
 <Page {ready}>
@@ -171,6 +172,7 @@
         name={iconName}
         on:click={handlePlayButtonClick}
         correctLeft={iconName === 'play-outline'}
+        disabled={isFinished}
       />
     </div>
   </div>
