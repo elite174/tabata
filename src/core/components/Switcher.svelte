@@ -2,7 +2,7 @@
   export let on: boolean = false;
 </script>
 
-<button role="Switcher" aria-checked={on} class="container" class:on on:click>
+<button role="switch" aria-checked={on} class="container" class:on on:click>
   <div class="Switcher-Knob" />
 </button>
 
