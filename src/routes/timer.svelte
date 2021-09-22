@@ -32,7 +32,6 @@
   import Page from '$components/Page.svelte';
   import CircleButton from '$components/CircleButton.svelte';
   import Header from '$components/Header.svelte';
-  import WakeLock from '$components/service/WakeLock.svelte';
 
   import Timer from '$features/timer/Timer.svelte';
   import InfoBlock from '$features/timer/InfoBlock.svelte';
@@ -49,9 +48,14 @@
 
   import type { VibrateService } from '$components/service/VibrationService.svelte';
   import type { AudioService } from '$components/service/AudioService/interfaces';
+  import type { WakeLockService } from '$components/service/WakeLockService/interfaces';
 
   const { currentTrainingConfig } = getContext<RuntimeStore>(ContextKeys.RuntimeStore);
   const { vibrate } = getContext<VibrateService>(ContextKeys.VibrateService);
+  const { playSound } = getContext<AudioService>(ContextKeys.AudioService);
+  const { requestWakeLock, clearWakeLock } = getContext<WakeLockService>(
+    ContextKeys.WakeLockService
+  );
 
   let trainingTime = 0;
   let isPlaying = false;
@@ -63,8 +67,6 @@
   let ready = false;
   let timer: NodeJS.Timer;
   let nextStage: Stage | undefined;
-
-  const { playSound } = getContext<AudioService>(ContextKeys.AudioService);
 
   const setInitialValue = () => {
     const { totalTrainingTime, pipeline } = makeTraining($currentTrainingConfig!);
@@ -145,6 +147,12 @@
   setInitialValue();
 
   onMount(() => {
+    requestWakeLock();
+
+    return clearWakeLock;
+  });
+
+  onMount(() => {
     return cleanUp;
   });
 
@@ -162,7 +170,6 @@
 </script>
 
 <Page {ready}>
-  <WakeLock lock />
   <div class="Timer">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />
     <div class="Timer-Container">

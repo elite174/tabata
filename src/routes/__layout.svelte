@@ -19,24 +19,27 @@
   import ServiceWorker from '$components/service/ServiceWorker.svelte';
   import StoreProvider from '$components/service/StoreProvider.svelte';
   import VibrationService from '$components/service/VibrationService.svelte';
+  import WakeLockService from '$components/service/WakeLockService/WakeLockService.svelte';
 
   export let currentPath = '';
 </script>
 
 <StoreProvider>
   <AudioService>
-    <RouterService {currentPath}>
-      <VibrationService>
-        <GlobalStyles />
-        <div class="layout">
-          <ServiceWorker class="Banner" />
-          <slot />
-          <slot name="navigation">
-            <Navigation />
-          </slot>
-        </div>
-      </VibrationService>
-    </RouterService>
+    <WakeLockService>
+      <RouterService {currentPath}>
+        <VibrationService>
+          <GlobalStyles />
+          <div class="layout">
+            <ServiceWorker class="Banner" />
+            <slot />
+            <slot name="navigation">
+              <Navigation />
+            </slot>
+          </div>
+        </VibrationService>
+      </RouterService>
+    </WakeLockService>
   </AudioService>
 </StoreProvider>
 

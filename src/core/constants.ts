@@ -11,5 +11,6 @@ export enum ContextKeys {
   RuntimeStore = 'RuntimeStore',
   VibrateService = 'VibrateService',
   RouterStore = 'RouterStore',
-  AudioService = 'AudioService'
+  AudioService = 'AudioService',
+  WakeLockService = 'WakeLockService'
 }
