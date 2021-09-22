@@ -10,5 +10,6 @@ export enum ContextKeys {
   SettingsStore = 'SettingsStore',
   RuntimeStore = 'RuntimeStore',
   VibrateService = 'VibrateService',
-  RouterStore = 'RouterStore'
+  RouterStore = 'RouterStore',
+  AudioService = 'AudioService'
 }

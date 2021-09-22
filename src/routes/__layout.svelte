@@ -13,6 +13,7 @@
 
 <script>
   import Navigation from '$components/Navigation/Navigation.svelte';
+  import AudioService from '$components/service/AudioService/AudioService.svelte';
   import GlobalStyles from '$components/service/GlobalStyles.svelte';
   import RouterService from '$components/service/RouterService.svelte';
   import ServiceWorker from '$components/service/ServiceWorker.svelte';
@@ -23,18 +24,20 @@
 </script>
 
 <StoreProvider>
-  <RouterService {currentPath}>
-    <VibrationService>
-      <GlobalStyles />
-      <div class="layout">
-        <ServiceWorker class="Banner" />
-        <slot />
-        <slot name="navigation">
-          <Navigation />
-        </slot>
-      </div>
-    </VibrationService>
-  </RouterService>
+  <AudioService>
+    <RouterService {currentPath}>
+      <VibrationService>
+        <GlobalStyles />
+        <div class="layout">
+          <ServiceWorker class="Banner" />
+          <slot />
+          <slot name="navigation">
+            <Navigation />
+          </slot>
+        </div>
+      </VibrationService>
+    </RouterService>
+  </AudioService>
 </StoreProvider>
 
 <style lang="scss">

@@ -21,28 +21,34 @@
       status: 200
     };
   }
+
+  const restStageSet = new Set([Stage.REST, Stage.AFTER_TRAINING, Stage.CYCLE_REST]);
 </script>
 
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { getContext, onMount } from 'svelte';
 
   import Page from '$components/Page.svelte';
+  import CircleButton from '$components/CircleButton.svelte';
+  import Header from '$components/Header.svelte';
+  import WakeLock from '$components/service/WakeLock.svelte';
+
   import Timer from '$features/timer/Timer.svelte';
+  import InfoBlock from '$features/timer/InfoBlock.svelte';
+
   import type { RuntimeStore } from '$store/runtimeStore';
+
+  import { formatTime } from '$utils';
   import type { StageConfig } from '$utils/training';
   import { makeTraining } from '$utils/training';
-  import { getContext, onMount } from 'svelte';
-  import CircleButton from '$components/CircleButton.svelte';
-  import InfoBlock from '$features/timer/InfoBlock.svelte';
-  import Header from '$components/Header.svelte';
+
   import { i18n } from '$i18n';
+
   import { ContextKeys, Stage } from '$constants';
-  import { formatTime } from '$utils';
-  import WakeLock from '$components/service/WakeLock.svelte';
-  import type { Sound } from '$components/service/AudioService.svelte';
 
   import type { VibrateService } from '$components/service/VibrationService.svelte';
-  import AudioService from '$components/service/AudioService.svelte';
+  import type { AudioService } from '$components/service/AudioService/interfaces';
 
   const { currentTrainingConfig } = getContext<RuntimeStore>(ContextKeys.RuntimeStore);
   const { vibrate } = getContext<VibrateService>(ContextKeys.VibrateService);
@@ -58,13 +64,7 @@
   let timer: NodeJS.Timer;
   let nextStage: Stage | undefined;
 
-  let audioPlayTrigger = 0;
-  let activeSound: Sound;
-
-  const playSound = (sound: Sound) => {
-    activeSound = sound;
-    audioPlayTrigger = Math.random();
-  };
+  const { playSound } = getContext<AudioService>(ContextKeys.AudioService);
 
   const setInitialValue = () => {
     const { totalTrainingTime, pipeline } = makeTraining($currentTrainingConfig!);
@@ -86,7 +86,7 @@
     isPlaying = false;
 
     vibrate([200, 200]);
-    playSound('end');
+    playSound('training_completed');
   };
 
   const tick = () => {
@@ -109,7 +109,14 @@
       remainingTime = trainingPipeline[currentStageIndex].duration;
 
       vibrate([100]);
-      playSound('stage');
+
+      if (restStageSet.has(trainingPipeline[currentStageIndex].stage)) {
+        playSound('rest');
+      } else {
+        playSound(
+          trainingPipeline[currentStageIndex + 1].stage !== Stage.REST ? 'last_one' : 'work'
+        );
+      }
     }
 
     timer = setTimeout(tick, 1000);
@@ -151,11 +158,10 @@
   $: stageText = i18n.stages[trainingPipeline[currentStageIndex].stage];
   $: nextStage = trainingPipeline[currentStageIndex + 1]?.stage;
   $: nextStageText = nextStage ? i18n.stages[nextStage] : '-';
-  $: isFinished = totalRemainingTime===0;
+  $: isFinished = totalRemainingTime === 0;
 </script>
 
 <Page {ready}>
-  <AudioService playTrigger={audioPlayTrigger} {activeSound} />
   <WakeLock lock />
   <div class="Timer">
     <Header text="Timer" onBackButtonClick={handleBackButtonClick} />
