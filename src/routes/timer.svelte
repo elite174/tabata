@@ -115,9 +115,7 @@
       if (restStageSet.has(trainingPipeline[currentStageIndex].stage)) {
         playSound('rest');
       } else {
-        playSound(
-          trainingPipeline[currentStageIndex + 1].stage !== Stage.REST ? 'last_one' : 'work'
-        );
+        playSound(trainingPipeline[currentStageIndex].last ? 'last_one' : 'work');
       }
     }
 

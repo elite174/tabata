@@ -5,7 +5,7 @@ type Options = {
   skipStages?: Set<Stage>;
 };
 
-export type StageConfig = { stage: Stage; duration: number };
+export type StageConfig = { stage: Stage; duration: number; last?: boolean };
 
 type Output = {
   totalTrainingTime: number;
@@ -41,7 +41,8 @@ export const makeTraining = (
       if (setDuration) {
         pipeline.push({
           stage: Stage.SET,
-          duration: setDuration
+          duration: setDuration,
+          last: setIndex === setsCount
         });
 
         totalTrainingTime += setDuration;
